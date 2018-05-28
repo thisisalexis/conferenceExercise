@@ -1,5 +1,6 @@
 package ve.com.thisisalexis.java.conference.abstracts;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import java.time.LocalTime;
@@ -12,6 +13,10 @@ import ve.com.thisisalexis.java.conference.exceptions.StartTimeGreaterThanEndTim
 import ve.com.thisisalexis.java.conference.exceptions.StartTimeNotSetForSessionException;
 
 import static java.time.temporal.ChronoUnit.MINUTES;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public abstract class AbstractSession {
 
@@ -66,7 +71,7 @@ public abstract class AbstractSession {
 	}
 	
 	public void addTalk(AbstractTalk talk ) {
+		//TODO este es el codigo duro donde se irán haciendo cálculos
 		
 	}
-	
 }

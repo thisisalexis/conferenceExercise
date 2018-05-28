@@ -2,7 +2,8 @@ package ve.com.thisisalexis.java.conferences;
 
 import java.util.logging.Logger;
 
-import ve.com.thisisalexis.java.conference.settings.AppSetUp;
+import ve.com.thisisalexis.java.conference.abstracts.AbstractSession;
+import ve.com.thisisalexis.java.conferences.models.MorningSession;
 
 public class App 
 {
@@ -12,21 +13,10 @@ public class App
     public static void main( String[] args )
     {
     	try {
-    		//Creación de objeto de configuraci´pion
-    		AppSetUp appSetUp = AppSetUp.getInstance();
-    		
-    		//Cargar listado de charlas
     		
     		
-    		
-    		//Creación de conferencia
-    		
-    		//Creación de tematicas
-    		
-    		//Creación de sessiones
-    		
-    		//Creación de charlas
-    		// TODO algoritmo 
+    		AbstractSession session = new MorningSession();
+    	
     		
     	} catch ( RuntimeException e ) {
     		LOGGER.warning( "An error happened in App.main() method" );

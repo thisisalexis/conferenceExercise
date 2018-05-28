@@ -1,5 +1,6 @@
 package ve.com.thisisalexis.java.conference.abstracts;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import ve.com.thisisalexis.java.conference.exceptions.TalkValidationException;

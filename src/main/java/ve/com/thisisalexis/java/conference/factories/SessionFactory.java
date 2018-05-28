@@ -12,7 +12,7 @@ import ve.com.thisisalexis.java.conferences.models.MorningSession;
  * @since 2018-05-27
  */
 public class SessionFactory {
-
+	
 	private SessionFactory() {  }
 	
 	public static AbstractSession getSession( SessionTypeEnum sessionType ) {
@@ -23,5 +23,5 @@ public class SessionFactory {
 		}
 		return null;
 	}
-
+	
 }
