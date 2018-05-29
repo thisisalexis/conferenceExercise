@@ -1,22 +1,16 @@
 package ve.com.thisisalexis.java.conference.abstracts;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import java.time.LocalTime;
 import java.time.temporal.UnsupportedTemporalTypeException;
 import java.time.DateTimeException;
+import static java.time.temporal.ChronoUnit.MINUTES;
 
 import ve.com.thisisalexis.java.conference.enums.SessionTypeEnum;
 import ve.com.thisisalexis.java.conference.exceptions.SessionException;
 import ve.com.thisisalexis.java.conference.exceptions.StartTimeGreaterThanEndTimeSessionException;
 import ve.com.thisisalexis.java.conference.exceptions.StartTimeNotSetForSessionException;
-
-import static java.time.temporal.ChronoUnit.MINUTES;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 
 public abstract class AbstractSession {
 

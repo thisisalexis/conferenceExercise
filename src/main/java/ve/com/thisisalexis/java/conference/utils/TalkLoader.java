@@ -5,30 +5,23 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import ve.com.thisisalexis.java.conference.abstracts.AbstractTalk;
+import ve.com.thisisalexis.java.conference.exceptions.LoadTalkException;
 import ve.com.thisisalexis.java.conference.exceptions.TalkValidationException;
 import ve.com.thisisalexis.java.conferences.models.Talk;
 
 public class TalkLoader {
 	
 	public static final String SEPARATOR = ",";
-	private List<AbstractTalk> talks = new ArrayList<AbstractTalk>();
+	public static final Logger LOGGER = Logger.getLogger( TalkLoader.class.getName() );
 
-	public TalkLoader( String pathToFile ) {
-		this.talks = TalkLoader.getTalksFromExternalSource(pathToFile);
-	}
-	
-	public List<AbstractTalk> getTalks() {
-		return talks;
-	}
+	private TalkLoader()  {}
 
-	public void setTalks(List<AbstractTalk> talks) {
-		this.talks = talks;
-	}
-	
-	public static List<AbstractTalk> getTalksFromExternalSource( String pathToFile ) {
-        String sourceFile = pathToFile; // "/Users/mkyong/csv/country.csv";
+	public static List<AbstractTalk> getTalksFromExternalSource(String pathToFile) throws IOException  {
+        String sourceFile = pathToFile;
         String line = "";
         List<AbstractTalk> talks = new ArrayList<AbstractTalk>();
 
@@ -36,24 +29,23 @@ public class TalkLoader {
             while ((line = br.readLine()) != null) {
                 String[] sessionStringDescriptor = line.split( TalkLoader.SEPARATOR );
                 try {
-                	 System.out.println("Session [description= " + sessionStringDescriptor[0] + " , duration=" + sessionStringDescriptor[1] + "]");
+                	TalkLoader.LOGGER.info("Loading talk: " + sessionStringDescriptor[0] + " which duration is " + sessionStringDescriptor[1] );
                 	 AbstractTalk talk = new Talk( sessionStringDescriptor[0], Integer.parseInt( sessionStringDescriptor[1] ) );
                 	 talks.add( talk );   	 
                 } catch ( IndexOutOfBoundsException e ) {
                 	e.printStackTrace();
                 } catch ( NumberFormatException e ) {
                 	e.printStackTrace();
+                } catch( TalkValidationException e ) {
+                	e.printStackTrace();
                 }
             }
         }
-        catch (IOException e) {
+        catch (LoadTalkException e) {
             e.printStackTrace();
-        } catch (TalkValidationException e) {
-        	e.printStackTrace();
-        } catch ( IllegalArgumentException e ) {
-        	e.printStackTrace();
+            TalkLoader.LOGGER.log(Level.WARNING, "There where a problem while loading the file " + pathToFile , e);
+            throw e;
         }
         return talks;
 	}
-
 }
