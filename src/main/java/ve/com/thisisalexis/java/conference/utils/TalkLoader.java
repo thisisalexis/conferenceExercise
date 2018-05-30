@@ -34,10 +34,13 @@ public class TalkLoader {
                 	 talks.add( talk );   	 
                 } catch ( IndexOutOfBoundsException e ) {
                 	e.printStackTrace();
+                	TalkLoader.LOGGER.warning( "Loading talk record: Missing data." );
                 } catch ( NumberFormatException e ) {
                 	e.printStackTrace();
+                	TalkLoader.LOGGER.warning( "Loading talk record: Invalid format for data." );
                 } catch( TalkValidationException e ) {
                 	e.printStackTrace();
+                	TalkLoader.LOGGER.warning( "Loading talk record: Talk validation failed." );
                 }
             }
         }
