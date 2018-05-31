@@ -36,5 +36,9 @@ public class Talk extends AbstractTalk {
 			throw new LoadTalkException();
 		}
 	}
+	
+	public String toString() {
+		return this.getTalkName() + ": " + this.getTalkDuration() + " minutes";
+	}
 
 }

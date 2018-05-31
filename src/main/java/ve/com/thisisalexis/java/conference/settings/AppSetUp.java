@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.time.LocalTime;
 import java.util.Properties;
 
+import ve.com.thisisalexis.java.conference.enums.SessionTypeEnum;
+
 /***
  * A class which implements the singleton pattern in order to make all
  * necessary setup to properl config the conference object and all of its 
@@ -135,6 +137,10 @@ public class AppSetUp {
 	public LocalTime getLocalTimeForProperty(String propertyName) {
 		LocalTime localTime = LocalTime.parse( this.properties.getProperty( propertyName ) );
 		return localTime;
+	}
+	
+	public void setUpSession( SessionTypeEnum sessionType ) {
+		
 	}
 
 }

@@ -29,7 +29,6 @@ public class TalkLoader {
             while ((line = br.readLine()) != null) {
                 String[] sessionStringDescriptor = line.split( TalkLoader.SEPARATOR );
                 try {
-                	TalkLoader.LOGGER.info("Loading talk: " + sessionStringDescriptor[0] + " which duration is " + sessionStringDescriptor[1] );
                 	 AbstractTalk talk = new Talk( sessionStringDescriptor[0], Integer.parseInt( sessionStringDescriptor[1] ) );
                 	 talks.add( talk );   	 
                 } catch ( IndexOutOfBoundsException e ) {

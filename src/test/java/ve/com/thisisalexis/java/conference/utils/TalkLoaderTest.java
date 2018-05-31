@@ -15,9 +15,11 @@ public class TalkLoaderTest {
 	
 	@Test
 	public void createTalkObjects() throws IOException {
+		int expectedTalksInFile = 19;
 		String pathToFile =  this.pathToFile;
 		List<AbstractTalk> talks = TalkLoader.getTalksFromExternalSource(pathToFile);
-		Assert.assertTrue( talks.size() == 19 );
+		Assert.assertTrue( "Talks' list has not been loaded. " + talks.size() + " out of " 
+		+ expectedTalksInFile + " were loaded", talks.size() == expectedTalksInFile );
 	}
 	
 	@Test( expected = IOException.class )

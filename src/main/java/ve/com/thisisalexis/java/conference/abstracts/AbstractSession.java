@@ -58,7 +58,7 @@ public abstract class AbstractSession {
 		this.endTime = endTime;
 	}
 	
-	public int getMinutesSessionDuration() throws UnsupportedTemporalTypeException, 
+	public int getSessionDuration() throws UnsupportedTemporalTypeException, 
 		DateTimeException, ArithmeticException {
 		Long difference = MINUTES.between(this.startTime, this.endTime);
 		return difference.intValue();
@@ -67,5 +67,10 @@ public abstract class AbstractSession {
 	public void addTalk(AbstractTalk talk ) {
 		//TODO este es el codigo duro donde se irán haciendo cálculos
 		
+	}
+	
+	@Override
+	public String toString() {
+		return super.toString(); // TODO implement this method
 	}
 }
