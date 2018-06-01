@@ -15,6 +15,8 @@ public class AppSetUpTest {
 		Assert.assertNotNull( "Morning session end time not set", appSetUp.getSessionMorgingEndTime() );
 		Assert.assertNotNull( "Afternoon session start time not set", appSetUp.getSessionAfternoonStartTime() );
 		Assert.assertNotNull( "Afternoon session end time not set", appSetUp.getSessionAfternoonEndTime() );
+		Assert.assertNotEquals( "Lunch start time not set",  appSetUp.getLunchStartTime() );
+		Assert.assertNotEquals( "Lunch end time not set",  appSetUp.getLuchEndTime() );
 		Assert.assertTrue( "End time for morning session is before the start time", 
 				appSetUp.getSessionMorgingStartTime().isBefore( appSetUp.getSessionMorgingEndTime() ) );
 		Assert.assertTrue( "End time for afternoon session is before the start time", 

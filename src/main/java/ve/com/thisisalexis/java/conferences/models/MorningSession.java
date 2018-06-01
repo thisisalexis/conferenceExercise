@@ -7,6 +7,7 @@ public class MorningSession extends Session {
 	public MorningSession() {
 		super();
 		this.setSessionType( SessionTypeEnum.MORNING );
+		this.setAcceptTalks( true );
 	}
 
 }

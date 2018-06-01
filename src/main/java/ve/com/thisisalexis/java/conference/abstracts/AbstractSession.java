@@ -1,6 +1,6 @@
 package ve.com.thisisalexis.java.conference.abstracts;
 
-import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.time.LocalTime;
 import java.time.temporal.UnsupportedTemporalTypeException;
@@ -15,20 +15,12 @@ import ve.com.thisisalexis.java.conference.exceptions.StartTimeNotSetForSessionE
 public abstract class AbstractSession {
 
 	public static final Logger LOGGER = Logger.getLogger( AbstractConference.class.getName() );
-	private List<AbstractTalk> talks;
 	private SessionTypeEnum sessionType;
 	private LocalTime startTime;
 	private LocalTime endTime;
+	private boolean isAcceptTalks;
 
-	public AbstractSession() {}
-
-	public List<AbstractTalk> getTalks() {
-		return talks;
-	}
-
-	public void setTalks(List<AbstractTalk> talks) {
-		this.talks = talks;
-	}
+	public AbstractSession() {} // TODO inicializar variables de instancia
 	
 	public SessionTypeEnum getSessionType() {
 		return sessionType;
@@ -42,7 +34,10 @@ public abstract class AbstractSession {
 		return startTime;
 	}
 
-	public void setStartTime(LocalTime startTime) {
+	private void setStartTime( LocalTime startTime ) throws StartTimeGreaterThanEndTimeSessionException {
+		if( this.getEndTime() != null && startTime.isAfter( this.getEndTime() ) ) {
+			throw new StartTimeGreaterThanEndTimeSessionException();
+		}
 		this.startTime = startTime;
 	}
 
@@ -50,7 +45,7 @@ public abstract class AbstractSession {
 		return endTime;
 	}
 
-	public void setEndTime(LocalTime endTime) throws SessionException {
+	private void setEndTime( LocalTime endTime ) throws SessionException {
 		if ( this.getStartTime() == null ) 
 			throw new StartTimeNotSetForSessionException();
 		else if( endTime.compareTo( this.getStartTime() ) < 0 )
@@ -64,13 +59,39 @@ public abstract class AbstractSession {
 		return difference.intValue();
 	}
 	
-	public void addTalk(AbstractTalk talk ) {
-		//TODO este es el codigo duro donde se irán haciendo cálculos
-		
+	public boolean isAcceptTalks() {
+		return isAcceptTalks;
+	}
+
+	protected void setAcceptTalks(boolean isAcceptTalks) {
+		this.isAcceptTalks = isAcceptTalks;
+	}
+	
+	/***
+	 * It check if the time between the start and end of the current session 
+	 * matches the time of a given session
+	 * @param sessionToCompare
+	 * @return true if the time of both sessions matches in some way
+	 */
+	public boolean isTimeMatches( AbstractSession sessionToCompare ) {
+		try {
+			return this.getEndTime().isAfter( sessionToCompare.getStartTime() )
+					|| this.getStartTime().isBefore( sessionToCompare.getEndTime() ) ;
+		} catch ( Exception e ) {
+			e.printStackTrace();
+			LOGGER.log( Level.WARNING, "There was an error while trying to check if the session matches", e );
+		}
+		return false;
 	}
 	
 	@Override
 	public String toString() {
-		return super.toString(); // TODO implement this method
+		try {
+			return this.getSessionType().toString() + ": From " + this.getStartTime().toString() + " to " + this.getEndTime() + ".";
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			LOGGER.log( Level.WARNING, "There was a problem when trying to print out the session", e );
+		}
+		return null;
 	}
 }

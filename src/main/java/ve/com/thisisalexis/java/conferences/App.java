@@ -5,9 +5,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import ve.com.thisisalexis.java.conference.abstracts.AbstractConference;
+import ve.com.thisisalexis.java.conference.abstracts.AbstractSession;
 import ve.com.thisisalexis.java.conference.abstracts.AbstractTalk;
+import ve.com.thisisalexis.java.conference.enums.SessionTypeEnum;
 import ve.com.thisisalexis.java.conference.exceptions.ConfigurationFileNotLoadedException;
 import ve.com.thisisalexis.java.conference.exceptions.LoadingTalksFileException;
+import ve.com.thisisalexis.java.conference.factories.SessionFactory;
 import ve.com.thisisalexis.java.conference.settings.AppSetUp;
 import ve.com.thisisalexis.java.conference.utils.TalkLoader;
 
@@ -26,10 +30,16 @@ public class App
     		}
     		
     		//Configurar plantilla de sesiones (Mañana y tarde)
+    		AbstractSession morningSession = SessionFactory.getSession( 
+    				SessionTypeEnum.MORNING, appSetUp.getSessionMorgingStartTime(), appSetUp.getSessionMorgingEndTime() );
+    		AbstractSession afternoonSession = SessionFactory.getSession( 
+    				SessionTypeEnum.AFTERNOON, appSetUp.getSessionAfternoonStartTime(), appSetUp.getSessionAfternoonEndTime() );
     		
+    		AbstractSession lunch = SessionFactory.getSession( 
+    				SessionTypeEnum.LUNCH, appSetUp.getLunchStartTime(), appSetUp.getLuchEndTime() );
     		
-    		//Configurar plantilla de temática (a partir de plantillas sesiones creadas)
-    		
+    		//Configurar conferencia
+    		AbstractConference conference = null;
     		
     		try {
     			List<AbstractTalk> talks = TalkLoader.getTalksFromExternalSource( args[0] );
@@ -38,14 +48,11 @@ public class App
     					+ "talks could not be loaded");
     		}
     		
-    		//Configurar conferencia
+    		//Agregar talks a la conferencia
     		
-    		//Inyectar talks a sessiones a partir de plantilla
-    		
-    		//Agregar sesiones a temáticas
     		
     		//Imprimir resultado
-    		// Conferencia.Tostring
+    		// conference.Tostring
     		
     		
     		

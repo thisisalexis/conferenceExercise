@@ -21,6 +21,8 @@ public class AppSetUp {
 	private static final String SESSION_MORNING_END_TIME_PROP_NAME = "sessionmorgingendtime";
 	private static final String SESSION_AFTERNOON_START_TIME_PROP_NAME = "sessionafternoonstarttime";
 	private static final String SESSION_AFTERNOON_END_TIME_PROP_NAME = "sessionafternoonendtime";
+	private static final String LUNCH_START_TIME_PROP_NAME = "lunchstarttime";
+	private static final String LUNCH_END_TIME_PROP_NAME = "lunchendtime";
 	
 	private Properties properties;
 	private Properties defaultProperties;
@@ -28,6 +30,8 @@ public class AppSetUp {
 	private LocalTime sessionMorgingEndTime;
 	private LocalTime sessionAfternoonStartTime;
 	private LocalTime sessionAfternoonEndTime;
+	private LocalTime lunchStartTime;
+	private LocalTime luchEndTime;
 	private boolean isSetUp;
 
 	private AppSetUp() {
@@ -67,6 +71,8 @@ public class AppSetUp {
 		this.setSessionMorgingEndTime( this.getLocalTimeForProperty( AppSetUp.SESSION_MORNING_END_TIME_PROP_NAME ) );
 		this.setSessionAfternoonStartTime( this.getLocalTimeForProperty( AppSetUp.SESSION_AFTERNOON_START_TIME_PROP_NAME ) );
 		this.setSessionAfternoonEndTime( this.getLocalTimeForProperty( AppSetUp.SESSION_AFTERNOON_END_TIME_PROP_NAME ) );
+		this.setLunchStartTime( this.getLocalTimeForProperty( AppSetUp.LUNCH_START_TIME_PROP_NAME ) );
+		this.setLuchEndTime( this.getLocalTimeForProperty( AppSetUp.LUNCH_END_TIME_PROP_NAME ) );
 	}
 	
 	public Properties getProperties() {
@@ -125,12 +131,31 @@ public class AppSetUp {
 		this.defaultProperties = defaultProperties;
 	}
 	
+	public LocalTime getLunchStartTime() {
+		return lunchStartTime;
+	}
+
+	private void setLunchStartTime(LocalTime lunchStartTime) {
+		this.lunchStartTime = lunchStartTime;
+	}
+
+	public LocalTime getLuchEndTime() {
+		return luchEndTime;
+	}
+
+	public void setLuchEndTime(LocalTime luchEndTime) {
+		this.luchEndTime = luchEndTime;
+	}
+	
 	private static Properties createDefaultProperties() {
 		Properties defaultProerties = new Properties();
 		defaultProerties.setProperty(AppSetUp.SESSION_MORNING_START_TIME_PROP_NAME, "09:00:00");
 		defaultProerties.setProperty(AppSetUp.SESSION_MORNING_END_TIME_PROP_NAME, "12:00:00");
 		defaultProerties.setProperty(AppSetUp.SESSION_AFTERNOON_START_TIME_PROP_NAME, "13:00:00");
 		defaultProerties.setProperty(AppSetUp.SESSION_AFTERNOON_END_TIME_PROP_NAME, "16:00:00");
+		defaultProerties.setProperty(AppSetUp.LUNCH_START_TIME_PROP_NAME, "12:00:00");
+		defaultProerties.setProperty(AppSetUp.LUNCH_END_TIME_PROP_NAME, "13:00:00");
+		
 		return defaultProerties;
 	}
 	
