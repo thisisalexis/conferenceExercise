@@ -16,7 +16,7 @@ public class Conference<T extends AbstractTalk> extends AbstractConference<T> {
 	}
 	
 	@Override
-	protected boolean prepareConference() {
+	protected boolean prepareConference( List<T> talks ) {
 
 		try {
 			List<AbstractSession> talkWrapperSessions = this.getTalkWrapperSessions();
@@ -25,22 +25,22 @@ public class Conference<T extends AbstractTalk> extends AbstractConference<T> {
 				
 			}
 			
-			AbstractThematic currentThematic;
-			List<AbstractThematic> thematics = this.getThematics();
-			
-			if ( thematics.size() > 0 ) {
-				currentThematic = this.getThematics().get( this.getThematics().size() - 1 );
-			} else {
-				currentThematic = new Thematic();
-				this.addThematic( currentThematic );
-			}
+			AbstractThematic currentThematic = new Thematic();
 			
 			// currentThematic.getRemainintTime();
 			for ( AbstractSession session : this.getSessions() ) {
 				int availableTime = session.getSessionDuration();
 				int remainintTime = availableTime;
 				
-				// for ()
+				for ( T talk :  talks ) {
+					if ( talk.getTalkDuration() <= remainintTime ) {
+						currentThematic.getTalks().add( talk );
+						remainintTime -= talk.getTalkDuration();
+						talks.remove( talk );
+					} else {
+						break;
+					}
+				}
 				
 				
 			}

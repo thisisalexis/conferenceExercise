@@ -128,6 +128,6 @@ public abstract class AbstractConference<T extends AbstractTalk> {
 		return false;
 	}
 	
-	protected abstract boolean prepareConference();
+	protected abstract boolean prepareConference( List<T> talks );
 	
 }
