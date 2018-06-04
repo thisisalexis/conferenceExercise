@@ -1,4 +1,4 @@
-package ve.com.thisisalexis.java.conference.exceptions;
+package ve.com.thisisalexis.java.conference.exceptions.talk;
 
 public class TalkValidationException extends Exception {
 

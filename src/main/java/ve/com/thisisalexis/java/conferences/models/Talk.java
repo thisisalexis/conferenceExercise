@@ -3,8 +3,8 @@ package ve.com.thisisalexis.java.conferences.models;
 import java.util.List;
 
 import ve.com.thisisalexis.java.conference.abstracts.AbstractTalk;
-import ve.com.thisisalexis.java.conference.exceptions.LoadTalkException;
-import ve.com.thisisalexis.java.conference.exceptions.TalkValidationException;
+import ve.com.thisisalexis.java.conference.exceptions.talk.LoadTalkException;
+import ve.com.thisisalexis.java.conference.exceptions.talk.TalkValidationException;
 import ve.com.thisisalexis.java.conference.utils.StringUtil;
 import ve.com.thisisalexis.java.conference.utils.TalkLoader;
 

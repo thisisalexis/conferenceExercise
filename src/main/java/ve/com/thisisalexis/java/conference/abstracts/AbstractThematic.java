@@ -17,7 +17,7 @@ public abstract class AbstractThematic {
 		return talks;
 	}
 
-	public void setTalks(List<AbstractTalk> talks) {
+	private void setTalks(List<AbstractTalk> talks) {
 		this.talks = talks;
 	}
 	

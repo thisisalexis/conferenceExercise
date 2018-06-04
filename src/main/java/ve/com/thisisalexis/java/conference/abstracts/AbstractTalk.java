@@ -1,9 +1,12 @@
 package ve.com.thisisalexis.java.conference.abstracts;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Logger;
 
-import ve.com.thisisalexis.java.conference.exceptions.TalkValidationException;
-import ve.com.thisisalexis.java.conference.exceptions.WrongTalkNameException;
+import ve.com.thisisalexis.java.conference.comparators.SortTalkByDurationDescComparator;
+import ve.com.thisisalexis.java.conference.exceptions.talk.TalkValidationException;
+import ve.com.thisisalexis.java.conference.exceptions.talk.WrongTalkNameException;
 
 public abstract class AbstractTalk {
 	
@@ -35,6 +38,16 @@ public abstract class AbstractTalk {
 
 	public void setTalkDuration(int talkDuration) {
 		this.talkDuration = talkDuration;
+	}
+	
+	/***
+	 * IT orders the talks in a List instance in ascending order by duration
+	 * @param talks
+	 * @return the same object but sorted
+	 */
+	public static List<AbstractTalk> sortTalksByDurationDescending( List<AbstractTalk> talks ) {
+		Collections.sort( talks,  new SortTalkByDurationDescComparator() );
+		return talks;
 	}
 	
 	protected abstract boolean isTalkNameValid( String talkName );

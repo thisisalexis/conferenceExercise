@@ -3,14 +3,13 @@ package ve.com.thisisalexis.java.conference.abstracts;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.time.LocalTime;
-import java.time.temporal.UnsupportedTemporalTypeException;
 import java.time.DateTimeException;
 import static java.time.temporal.ChronoUnit.MINUTES;
 
 import ve.com.thisisalexis.java.conference.enums.SessionTypeEnum;
-import ve.com.thisisalexis.java.conference.exceptions.SessionException;
-import ve.com.thisisalexis.java.conference.exceptions.StartTimeGreaterThanEndTimeSessionException;
-import ve.com.thisisalexis.java.conference.exceptions.StartTimeNotSetForSessionException;
+import ve.com.thisisalexis.java.conference.exceptions.session.SessionException;
+import ve.com.thisisalexis.java.conference.exceptions.session.StartTimeGreaterThanEndTimeSessionException;
+import ve.com.thisisalexis.java.conference.exceptions.session.StartTimeNotSetForSessionException;
 
 public abstract class AbstractSession {
 
@@ -19,8 +18,18 @@ public abstract class AbstractSession {
 	private LocalTime startTime;
 	private LocalTime endTime;
 	private boolean isAcceptTalks;
+	private int sessionDuration = 0;
 
-	public AbstractSession() {} // TODO inicializar variables de instancia
+	public AbstractSession( SessionTypeEnum sessionType, 
+			LocalTime startTime, 
+			LocalTime endTime, 
+			boolean isAcceptTalks ) throws StartTimeGreaterThanEndTimeSessionException, SessionException {
+		this.setSessionType( sessionType );
+		this.setStartTime( startTime );
+		this.setEndTime( endTime );
+		this.setAcceptTalks( isAcceptTalks );
+		this.setSessionDuration();
+	}
 	
 	public SessionTypeEnum getSessionType() {
 		return sessionType;
@@ -53,10 +62,23 @@ public abstract class AbstractSession {
 		this.endTime = endTime;
 	}
 	
-	public int getSessionDuration() throws UnsupportedTemporalTypeException, 
-		DateTimeException, ArithmeticException {
-		Long difference = MINUTES.between(this.startTime, this.endTime);
-		return difference.intValue();
+	public int getSessionDuration() {
+		return this.sessionDuration;
+	}
+	
+	private void setSessionDuration() {
+		try {
+			Long difference = MINUTES.between(this.startTime, this.endTime);
+			this.sessionDuration = difference.intValue();
+		} catch ( DateTimeException e ) {
+			e.printStackTrace();
+			LOGGER.log( Level.WARNING, "There was a problem while trying to set session duration", e );
+			this.sessionDuration = 0;
+		} catch ( ArithmeticException e ) {
+			e.printStackTrace();
+			LOGGER.log( Level.WARNING, "There was a problem while calculating session duration", e );
+			this.sessionDuration = 0;
+		}
 	}
 	
 	public boolean isAcceptTalks() {

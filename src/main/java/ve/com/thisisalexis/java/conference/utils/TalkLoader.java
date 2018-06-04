@@ -3,14 +3,15 @@ package ve.com.thisisalexis.java.conference.utils;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import ve.com.thisisalexis.java.conference.abstracts.AbstractTalk;
-import ve.com.thisisalexis.java.conference.exceptions.LoadTalkException;
-import ve.com.thisisalexis.java.conference.exceptions.TalkValidationException;
+import ve.com.thisisalexis.java.conference.exceptions.talk.LoadTalkException;
+import ve.com.thisisalexis.java.conference.exceptions.talk.TalkValidationException;
 import ve.com.thisisalexis.java.conferences.models.Talk;
 
 public class TalkLoader {
@@ -24,8 +25,11 @@ public class TalkLoader {
         String sourceFile = pathToFile;
         String line = "";
         List<AbstractTalk> talks = new ArrayList<AbstractTalk>();
-
-        try (BufferedReader br = new BufferedReader(new FileReader(sourceFile))) {
+        Reader reader = new FileReader( sourceFile );
+        BufferedReader br = null;
+        
+        try {
+        	br = new BufferedReader( reader );
             while ((line = br.readLine()) != null) {
                 String[] sessionStringDescriptor = line.split( TalkLoader.SEPARATOR );
                 try {
@@ -42,12 +46,14 @@ public class TalkLoader {
                 	TalkLoader.LOGGER.warning( "Loading talk record: Talk validation failed." );
                 }
             }
-        }
-        catch (LoadTalkException e) {
-            e.printStackTrace();
+        } catch (LoadTalkException e) {
+        	e.printStackTrace();
             TalkLoader.LOGGER.log(Level.WARNING, "There where a problem while loading the file " + pathToFile , e);
             throw e;
-        }
+        } finally {
+			if ( br != null )
+				br.close();
+		}
         return talks;
 	}
 }
