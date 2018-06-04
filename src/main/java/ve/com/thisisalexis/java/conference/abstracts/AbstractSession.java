@@ -35,7 +35,7 @@ public abstract class AbstractSession {
 		return sessionType;
 	}
 
-	public void setSessionType(SessionTypeEnum sessionType) {
+	protected void setSessionType(SessionTypeEnum sessionType) {
 		this.sessionType = sessionType;
 	}
 	
@@ -43,7 +43,7 @@ public abstract class AbstractSession {
 		return startTime;
 	}
 
-	private void setStartTime( LocalTime startTime ) throws StartTimeGreaterThanEndTimeSessionException {
+	protected void setStartTime( LocalTime startTime ) throws StartTimeGreaterThanEndTimeSessionException {
 		if( this.getEndTime() != null && startTime.isAfter( this.getEndTime() ) ) {
 			throw new StartTimeGreaterThanEndTimeSessionException();
 		}
@@ -54,7 +54,7 @@ public abstract class AbstractSession {
 		return endTime;
 	}
 
-	private void setEndTime( LocalTime endTime ) throws SessionException {
+	protected void setEndTime( LocalTime endTime ) throws SessionException {
 		if ( this.getStartTime() == null ) 
 			throw new StartTimeNotSetForSessionException();
 		else if( endTime.compareTo( this.getStartTime() ) < 0 )
@@ -66,7 +66,7 @@ public abstract class AbstractSession {
 		return this.sessionDuration;
 	}
 	
-	private void setSessionDuration() {
+	protected void setSessionDuration() {
 		try {
 			Long difference = MINUTES.between(this.startTime, this.endTime);
 			this.sessionDuration = difference.intValue();
@@ -95,7 +95,7 @@ public abstract class AbstractSession {
 	 * @param sessionToCompare
 	 * @return true if the time of both sessions matches in some way
 	 */
-	public boolean isTimeMatches( AbstractSession sessionToCompare ) {
+	protected boolean isTimeMatches( AbstractSession sessionToCompare ) {
 		try {
 			return this.getEndTime().isAfter( sessionToCompare.getStartTime() )
 					|| this.getStartTime().isBefore( sessionToCompare.getEndTime() ) ;

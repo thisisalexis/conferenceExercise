@@ -18,6 +18,7 @@ import ve.com.thisisalexis.java.conference.exceptions.talk.LoadingTalksFileExcep
 import ve.com.thisisalexis.java.conference.factories.SessionFactory;
 import ve.com.thisisalexis.java.conference.settings.AppSetUp;
 import ve.com.thisisalexis.java.conference.utils.TalkLoader;
+import ve.com.thisisalexis.java.conferences.models.Talk;
 
 public class App 
 {
@@ -55,9 +56,9 @@ public class App
     		sessions.add( lunch );
     		
     		try {
-    			List<AbstractTalk> talks = TalkLoader.getTalksFromExternalSource( args[0] );
-        		AbstractConference conference = 
-        				new ConferenceBuilder().setSessions( sessions ).setTalks( talks ).build();
+    			List<Talk> talks = TalkLoader.getTalksFromExternalSource( args[0] );
+        		AbstractConference<Talk> conference = 
+        				new ConferenceBuilder<Talk>().setSessions( sessions ).setTalks( talks ).build();
         		conference.toString();
     		} catch ( IOException e ) {
     			throw new LoadingTalksFileException(

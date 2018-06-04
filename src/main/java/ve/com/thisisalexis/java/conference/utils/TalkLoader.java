@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import ve.com.thisisalexis.java.conference.abstracts.AbstractTalk;
 import ve.com.thisisalexis.java.conference.exceptions.talk.LoadTalkException;
 import ve.com.thisisalexis.java.conference.exceptions.talk.TalkValidationException;
 import ve.com.thisisalexis.java.conferences.models.Talk;
@@ -21,10 +20,10 @@ public class TalkLoader {
 
 	private TalkLoader()  {}
 
-	public static List<AbstractTalk> getTalksFromExternalSource(String pathToFile) throws IOException  {
+	public static List<Talk> getTalksFromExternalSource(String pathToFile) throws IOException  {
         String sourceFile = pathToFile;
         String line = "";
-        List<AbstractTalk> talks = new ArrayList<AbstractTalk>();
+        List<Talk> talks = new ArrayList<Talk>();
         Reader reader = new FileReader( sourceFile );
         BufferedReader br = null;
         
@@ -33,7 +32,7 @@ public class TalkLoader {
             while ((line = br.readLine()) != null) {
                 String[] sessionStringDescriptor = line.split( TalkLoader.SEPARATOR );
                 try {
-                	 AbstractTalk talk = new Talk( sessionStringDescriptor[0], Integer.parseInt( sessionStringDescriptor[1] ) );
+                	Talk talk = new Talk( sessionStringDescriptor[0], Integer.parseInt( sessionStringDescriptor[1] ) );
                 	 talks.add( talk );   	 
                 } catch ( IndexOutOfBoundsException e ) {
                 	e.printStackTrace();

@@ -27,9 +27,9 @@ public class Talk extends AbstractTalk {
 		return StringUtil.doesStringHasNumericValues( talkName );
 	}
 	
-	public static List<AbstractTalk> getTalksFromExternalSource( String pathToFile ) throws LoadTalkException {
+	public static List<Talk> getTalksFromExternalSource( String pathToFile ) throws LoadTalkException {
 		try {
-			List<AbstractTalk> talks = TalkLoader.getTalksFromExternalSource(pathToFile);
+			List<Talk> talks = TalkLoader.getTalksFromExternalSource( pathToFile );
 			return talks;
 		} catch (Exception e) {
 			e.printStackTrace();

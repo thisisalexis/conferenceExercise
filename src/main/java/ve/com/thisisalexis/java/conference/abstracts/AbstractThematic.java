@@ -8,6 +8,7 @@ public abstract class AbstractThematic {
 
 	public static final Logger LOGGER = Logger.getLogger( AbstractThematic.class.getName() );
 	private List<AbstractTalk> talks;
+	private int availableTime;
 
 	public AbstractThematic() {
 		this.setTalks( new ArrayList<AbstractTalk>() );
@@ -21,7 +22,15 @@ public abstract class AbstractThematic {
 		this.talks = talks;
 	}
 	
-	public void addTalk(AbstractTalk talk ) {
+	public int getAvailableTime() {
+		return availableTime;
+	}
+
+	protected void setAvailableTime( int availableTime ) {
+		this.availableTime = availableTime;
+	}
+	
+	public void addTalk( AbstractTalk talk ) {
 		//TODO este es el codigo duro donde se irán haciendo cálculos
 	}
 	

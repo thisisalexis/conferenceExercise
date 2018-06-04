@@ -10,15 +10,15 @@ import ve.com.thisisalexis.java.conference.abstracts.AbstractTalk;
 import ve.com.thisisalexis.java.conference.exceptions.session.SessionException;
 import ve.com.thisisalexis.java.conferences.models.Conference;
 
-public class ConferenceBuilder {
+public class ConferenceBuilder<T extends AbstractTalk> {
 
 	public static final Logger LOGGER = Logger.getLogger( AbstractConference.class.getName() );
 	private List<AbstractSession> sessions;
-	private List<AbstractTalk> talks;
+	private List<T> talks;
 
 	public ConferenceBuilder() {}
 
-	public ConferenceBuilder setSessions(List<AbstractSession> sessions) {
+	public ConferenceBuilder<T> setSessions(List<AbstractSession> sessions) {
 		this.sessions = sessions;
 		return this;
 	}
@@ -27,18 +27,18 @@ public class ConferenceBuilder {
 		return sessions;
 	}
 
-	public ConferenceBuilder setTalks(List<AbstractTalk> talks) {
+	public ConferenceBuilder<T> setTalks(List<T> talks) {
 		this.talks = talks;
 		return this;
 	}
 	
-	private List<AbstractTalk> getTalks() {
+	private List<T> getTalks() {
 		return talks;
 	}
 	
-	public AbstractConference build() {
+	public AbstractConference<T> build() {
 		try {
-			return new Conference( this.getSessions(), this.getTalks() );
+			return new Conference<T>( this.getSessions(), this.getTalks() );
 		} catch( SessionException e ) {
 			e.printStackTrace();
 			LOGGER.log( Level.WARNING, e.getMessage(), e );

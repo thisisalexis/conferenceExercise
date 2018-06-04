@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import ve.com.thisisalexis.java.conference.abstracts.AbstractTalk;
+import ve.com.thisisalexis.java.conferences.models.Talk;
 
 
 public class TalkLoaderTest {
@@ -17,7 +17,7 @@ public class TalkLoaderTest {
 	public void createTalkObjects() throws IOException {
 		int expectedTalksInFile = 19;
 		String pathToFile =  this.pathToFile;
-		List<AbstractTalk> talks = TalkLoader.getTalksFromExternalSource(pathToFile);
+		List<Talk> talks = TalkLoader.getTalksFromExternalSource(pathToFile);
 		Assert.assertTrue( "Talks' list has not been loaded. " + talks.size() + " out of " 
 		+ expectedTalksInFile + " were loaded", talks.size() == expectedTalksInFile );
 	}
