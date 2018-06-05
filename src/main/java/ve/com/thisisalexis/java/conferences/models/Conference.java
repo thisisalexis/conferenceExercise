@@ -16,58 +16,50 @@ public class Conference<T extends AbstractTalk> extends AbstractConference<T> {
 	}
 	
 	@Override
-	protected boolean prepareConference( List<T> talks ) {
+	protected boolean prepareConference( List<T> allTalks ) {
 
 		try {
 			List<AbstractSession> talkWrapperSessions = this.getTalkWrapperSessions();
 			
 			if ( talkWrapperSessions == null ) {
-				
+				// TODO lanzar excepti+op si no existen sessiones wrapanles
 			}
+			
 			
 			AbstractThematic currentThematic = new Thematic();
 			
 			// currentThematic.getRemainintTime();
-			for ( AbstractSession session : this.getSessions() ) {
-				int availableTime = session.getSessionDuration();
-				int remainintTime = availableTime;
+			for ( AbstractSession session : talkWrapperSessions ) {
+				int remainingTimeForSession = session.getSessionDuration();
 				
-				for ( T talk :  talks ) {
-					if ( talk.getTalkDuration() <= remainintTime ) {
-						currentThematic.getTalks().add( talk );
-						remainintTime -= talk.getTalkDuration();
-						talks.remove( talk );
+				for ( T talk :  allTalks ) {
+					if ( talk.getTalkDuration() <= remainingTimeForSession ) {
+						currentThematic.getTalks().add( talk ); //TODO crear un método addTalks
+						remainingTimeForSession -= talk.getTalkDuration();
+						allTalks.remove( talk );
 					} else {
 						break;
 					}
-				}
-				
-				
+				}	
+			}
+			
+			if ( allTalks.size() > 0 ) {
+				//TODO repetir proceso anterior: crear temática e ir agregando
 			}
 			
 		} catch ( NullPointerException e ) {
 			e.printStackTrace();
 			Conference.LOGGER.log( Level.WARNING, "There was a problem while setting up the conference", e );
 		}
-			
-		/*
-		int tiempoNecesarioTotal = 500;
-		int tiempoDisponibleTotal = 240;
-		
-		for ( AbstractTalk talk : talks ) {
-			
-			if ( tiempoTarea < tiempoDisponible )
-				Agregar
-			for( AbstractSession session : talkWrapperSessions ) {
-				
-				int duration = session.getSessionDuration();
-				int remainintTime
-			}	
-			
-		}
-		*/
-		
 		return false;
+	}
+	
+	protected void addThematic( List<Talk> remainingtalks ) {
+		// TODO aquí se decide si hay tematica o si se crea una nueva
+	}
+	
+	protected void addTalksToThematic( AbstractThematic thematic ) {
+		//TODO aquí se agregan las tareas a la temática según tiempo disponible en la misma
 	}
 	
 }
