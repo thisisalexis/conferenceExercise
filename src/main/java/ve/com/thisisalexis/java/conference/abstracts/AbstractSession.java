@@ -1,5 +1,6 @@
 package ve.com.thisisalexis.java.conference.abstracts;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.time.LocalTime;
@@ -19,6 +20,7 @@ public abstract class AbstractSession {
 	private LocalTime endTime;
 	private boolean isAcceptTalks;
 	private int sessionDuration = 0;
+	private List<AbstractTalk> talks;
 
 	public AbstractSession( SessionTypeEnum sessionType, 
 			LocalTime startTime, 
@@ -60,6 +62,14 @@ public abstract class AbstractSession {
 		else if( endTime.compareTo( this.getStartTime() ) < 0 )
 			throw new StartTimeGreaterThanEndTimeSessionException();
 		this.endTime = endTime;
+	}
+	
+	public List<AbstractTalk> getTalks() {
+		return talks;
+	}
+
+	protected void setTalks(List<AbstractTalk> talks) {
+		this.talks = talks;
 	}
 	
 	public int getSessionDuration() {

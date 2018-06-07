@@ -25,11 +25,10 @@ public class Conference<T extends AbstractTalk> extends AbstractConference<T> {
 				// TODO lanzar excepti+op si no existen sessiones wrapanles
 			}
 			
-			
-			AbstractThematic currentThematic = new Thematic();
+			AbstractThematic currentThematic = new Thematic( talkWrapperSessions ); // TODO Tengo que crear nuevos objetos session y no enviar la referencia ok?
 			
 			// currentThematic.getRemainintTime();
-			for ( AbstractSession session : talkWrapperSessions ) {
+			for ( AbstractSession session : currentThematic.getTalkWrapperSessions() ) {
 				int remainingTimeForSession = session.getSessionDuration();
 				
 				for ( T talk :  allTalks ) {
@@ -46,6 +45,7 @@ public class Conference<T extends AbstractTalk> extends AbstractConference<T> {
 			if ( allTalks.size() > 0 ) {
 				//TODO repetir proceso anterior: crear temática e ir agregando
 			}
+			
 			
 		} catch ( NullPointerException e ) {
 			e.printStackTrace();

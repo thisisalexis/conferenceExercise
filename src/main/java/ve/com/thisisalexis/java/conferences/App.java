@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 
 import ve.com.thisisalexis.java.conference.abstracts.AbstractConference;
 import ve.com.thisisalexis.java.conference.abstracts.AbstractSession;
-import ve.com.thisisalexis.java.conference.abstracts.AbstractTalk;
 import ve.com.thisisalexis.java.conference.builders.ConferenceBuilder;
 import ve.com.thisisalexis.java.conference.enums.SessionTypeEnum;
 import ve.com.thisisalexis.java.conference.exceptions.ConfigurationFileNotLoadedException;
